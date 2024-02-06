@@ -8,46 +8,45 @@
 // Dichiarazione delle variabili per memorizzare la scelta dell'utente (pari o dispari), 
 // il numero scelto dall'utente e il numero casuale generato dal computer
 
-// Chiede all'utente di scegliere tra "pari" e "dispari"
-const userChoice = prompt("digita la tua scelta tra pari o dispari");
 
-// Chiede all'utente di inserire un numero compreso tra 1 e 5 e lo converte in un numero intero
-const userNumber = parseInt(prompt("digita un numero tra 1 e 5"));
-
-// Genera un numero casuale compreso tra 1 e 5 per (scelta del computer)
-const computerNumber = Math.floor(Math.random() * 5 + 1);
-
-// Calcola la somma dei numeri scelti dall'utente e dal computer
-const sum = userNumber + computerNumber;
-
-// Verifica se la somma dei due numeri è pari o dispari
-if (sum % 2 === 0) {
-    // Se la somma è pari, verifica se la scelta dell'utente è "pari"
-    if (userChoice === "pari") {
-        // Se la scelta dell'utente è "pari", visualizza il rispettivo messaggio
-        document.getElementById("result2").innerHTML =  "<h2 class=text-success  bg-white rounded>Pari! Hai vinto!</h2>";
+// Funzione principale che gestisce il gioco
+function repeat() {
+    // Chiede all'utente di scegliere tra "pari" e "dispari"
+    const userChoice = prompt("Inserisci 'pari' o 'dispari':");
+    
+    // Chiede all'utente di inserire un numero compreso tra 1 e 5 e lo converte in un numero intero
+    const userNumber = parseInt(prompt("Inserisci un numero da 1 a 5:"));
+    
+    // Genera un numero casuale compreso tra 1 e 5 per la scelta del computer
+    const computerNumber = Math.floor(Math.random() * 5 + 1);
+    
+    // Ottiene il risultato del gioco confrontando la scelta dell'utente con il risultato calcolato(in poche parole il valore risultante della funzione result)
+    const resultValue = result(userNumber, computerNumber);
+    
+    // Visualizza il risultato del gioco in base alla scelta dell'utente
+    if (userChoice === resultValue) {
+        document.getElementById("result2").innerHTML = "<h2 class=text-success bg-white rounded>Hai vinto!</h2> La somma è " + userChoice + "!";
     } else {
-        // Se la scelta dell'utente non è "pari", visualizza il rispettivo messaggio 
-        document.getElementById("result2").innerHTML =  "<h2 class=text-danger  bg-white rounded>Pari! Hai perso!</h2>";
-
+        document.getElementById("result2").innerHTML = "<h2 class=text-danger bg-white rounded>Hai perso!</h2> La somma non è " + userChoice + "!";
     }
-    // Imposta il risultato della somma come pari
-    result = "pari";
-} else {
-    // Se la somma non è pari, verifica se la scelta dell'utente è "dispari"
-    if (userChoice === "dispari") {
-        // Se la scelta dell'utente è "dispari", visualizza il rispettivo messaggio
-        document.getElementById("result2").innerHTML =  "<h2 class=text-success  bg-white rounded>Dispari! Hai vinto!</h2>";
+    
+    // Visualizza la somma dei numeri scelti dall'utente e dal computer
+    document.getElementById("result").innerHTML = "Somma: " + (userNumber + computerNumber);
+    
+    // Visualizza il numero scelto dal computer
+    document.getElementById("computer-choice").innerHTML = "Scelta del computer: " + computerNumber;
+    
+    
+}
+// Funzione per determinare se la somma dei due numeri è pari o dispari
+function result(userNumber, computerNumber) {
+    const sum = userNumber + computerNumber;
+    if (sum % 2 == 0) {
+        return "pari";
     } else {
-        // Se la scelta dell'utente non è "dispari", visualizza il rispettivo messaggio
-        document.getElementById("result2").innerHTML =  "<h2 class=text-danger  bg-white rounded>Dispari! Hai perso!</h2>";
+        return "dispari";
     }
-    // Imposta il risultato della somma come dispari
-    result = "dispari";
 }
 
-// Visualizza la somma dei due scelti
-document.getElementById("result").innerHTML =  "Sum: " + sum;
-
-// Visualizza il numero del computer 
-document.getElementById("computer-choice").innerHTML = "computer choice = " + computerNumber;
+// Aggiunge un listener al click del pulsante "Inizia" per avviare il gioco
+document.getElementById("start").addEventListener("click", repeat);
