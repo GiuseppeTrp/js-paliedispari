@@ -15,14 +15,24 @@ function repeat() {
     const userChoice = prompt("Inserisci 'pari' o 'dispari':");
     
     // Chiede all'utente di inserire un numero compreso tra 1 e 5 e lo converte in un numero intero
-    const userNumber = parseInt(prompt("Inserisci un numero da 1 a 5:"));
+    const userNumber = parseInt(prompt("INSERISCI UN NUMERO DA 1 A 5: (se inserisci decimali verrà considerata solo la cifra prima delle virgola!) "));
     
     // Genera un numero casuale compreso tra 1 e 5 per la scelta del computer
     const computerNumber = Math.floor(Math.random() * 5 + 1);
     
-    // Ottiene il risultato del gioco confrontando la scelta dell'utente con il risultato calcolato(in poche parole il valore risultante della funzione result)
+    // Ottiene il risultato del gioco confrontando la scelta dell'utente con il risultato calcolato
     const resultValue = result(userNumber, computerNumber);
-    
+   
+    // Verifica contemporaneamente se l'input dell'utente è valido
+    if ((userChoice !== 'pari' && userChoice !== 'dispari') || isNaN(userNumber) || userNumber < 1 || userNumber > 5 ) {
+        if (userChoice !== 'pari' && userChoice !== 'dispari') {
+            alert('Inserisci solo "pari" o "dispari" senza spazi.');
+        } else {
+            alert('Inserisci un numero valido da 1 a 5.');
+        }
+        return; // Esce dalla funzione se l'input non è valido
+    }
+
     // Visualizza il risultato del gioco in base alla scelta dell'utente
     if (userChoice === resultValue) {
         document.getElementById("result2").innerHTML = "<h2 class=text-success bg-white rounded>Hai vinto!</h2> La somma è " + userChoice + "!";
@@ -35,9 +45,8 @@ function repeat() {
     
     // Visualizza il numero scelto dal computer
     document.getElementById("computer-choice").innerHTML = "Scelta del computer: " + computerNumber;
-    
-    
 }
+
 // Funzione per determinare se la somma dei due numeri è pari o dispari
 function result(userNumber, computerNumber) {
     const sum = userNumber + computerNumber;
