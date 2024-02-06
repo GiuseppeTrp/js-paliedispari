@@ -6,4 +6,8 @@
 // Se l'utente ha indovinato l'esito (pari o dispari) della somma ha vinto, altrimenti ha perso.
 
 //   Dichiaro le mie variabili per le varie operazioni 
+const userChoise = prompt("digita la tua scelta  tra pari o dispari ");
 
+const userNumber = prompt("digita un numero tra 1 e 5");
+
+const computerNumber = Math.floor(Math.random() * 5 + 1)
